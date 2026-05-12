@@ -2,8 +2,8 @@ name: Update Liquidation Levels
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # co 30 minut
-  workflow_dispatch:         # mozna uruchomic recznie
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
 
 jobs:
   update:
@@ -30,6 +30,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
           git add liq_levels.json
           git diff --staged --quiet || git commit -m "Update liq levels $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
